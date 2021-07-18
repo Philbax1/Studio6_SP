@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
 
         
         /*      Sprint        */
-        if(Input.GetKeyDown(KeyCode.LeftShift)) speed = runSpeed;
+        if(Input.GetKeyDown(KeyCode.LeftShift) && isGrounded) speed = runSpeed;
         if(Input.GetKeyUp(KeyCode.LeftShift)) speed = 6f;
         
     }
