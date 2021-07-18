@@ -14,13 +14,15 @@ public class PlayerMovement : MonoBehaviour
     float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
 
+// Jump variables
     float gravity = -20f;
     public Transform groundCheck;
-    public float groundDistance;
+    float groundDistance = 0.4f;
     public LayerMask groundMask;
 
     Vector3 velocity;
     bool isGrounded;
+    bool canDoubleJump = true;
 
 
     // Start is called before the first frame update
@@ -39,9 +41,10 @@ public class PlayerMovement : MonoBehaviour
         /*      Jump      */
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask); //checks if groundcheck sphere is in contact with object labelled ground
 
-        if(isGrounded && velocity.y < 0)
+        if(isGrounded && velocity.y < 0) // stops gravity when player is on ground again
         {
             velocity.y = -2f;
+            canDoubleJump = true;
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -49,10 +52,17 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetButtonDown("Jump"))
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            //direction = new Vector3(horizontal, jumpHeight, vertical);
-            //controller.Move(direction * speed * Time.deltaTime);
+            if(isGrounded) velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // physical jump code
+            else
+            {
+                if(canDoubleJump)
+                {
+                    velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // physical jump code
+                    canDoubleJump = false;
+                }
+            }
         }
+        
 
         
 
