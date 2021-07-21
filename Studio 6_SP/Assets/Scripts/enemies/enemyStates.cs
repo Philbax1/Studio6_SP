@@ -8,8 +8,8 @@ public class enemyStates : MonoBehaviour
     public Transform player;
     public NavMeshAgent nmAgent;
 
-    float followRange = 100f;
-    float attackRange = 10f;
+    float followRange = 50f;
+    float attackRange = 5f;
 
     float distance;
 
@@ -26,13 +26,18 @@ public class enemyStates : MonoBehaviour
 
         if(distance <= followRange)
         {
-            followPlayer();
+            if(distance <= attackRange)
+            {
+                attackPlayer();
+            }
+            else followPlayer();
         }
+        else neutralPatrol();
     }
 
     void neutralPatrol()
     {
-
+        Debug.Log("enemy is in neutral state");
     }
 
     void followPlayer()
@@ -42,7 +47,7 @@ public class enemyStates : MonoBehaviour
 
     void attackPlayer()
     {
-
+        Debug.Log("enemy is attacking player");
     }
 
     void die()

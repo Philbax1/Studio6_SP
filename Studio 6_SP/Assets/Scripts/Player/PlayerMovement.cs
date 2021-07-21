@@ -7,7 +7,8 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     public Transform cam;
 
-    float speed = 6f;
+    float activeSpeed;
+    const float speed = 6f;
     float runSpeed = 20f;
     float jumpHeight = 2f;
 
@@ -52,7 +53,11 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetButtonDown("Jump"))
         {
-            if(isGrounded) velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // physical jump code
+            if(isGrounded) 
+            {
+                activeSpeed = speed;
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // physical jump code
+            }
             else
             {
                 if(canDoubleJump)
@@ -64,7 +69,6 @@ public class PlayerMovement : MonoBehaviour
         }
         
 
-        
 
         /*      0000        */
         if(direction.magnitude >= 0.1f)
@@ -74,13 +78,13 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(moveDir.normalized * speed * Time.deltaTime);
+            controller.Move(moveDir.normalized * activeSpeed * Time.deltaTime);
         }
 
         
         /*      Sprint        */
-        if(Input.GetKeyDown(KeyCode.LeftShift) && isGrounded) speed = runSpeed;
-        if(Input.GetKeyUp(KeyCode.LeftShift)) speed = 6f;
+        if(Input.GetKeyDown(KeyCode.LeftShift) && isGrounded) activeSpeed = runSpeed;
+        if(Input.GetKeyUp(KeyCode.LeftShift)) activeSpeed = speed;
         
     }
 }
