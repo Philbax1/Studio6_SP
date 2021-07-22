@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        activeSpeed = speed;
     }
 
     // Update is called once per frame
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         if(isGrounded && velocity.y < 0) // stops gravity when player is on ground again
         {
             velocity.y = -2f;
-            canDoubleJump = true;
+            canDoubleJump = true;   //allows player to double jump after makiing contact with ground layer
         }
 
         velocity.y += gravity * Time.deltaTime;
@@ -58,17 +58,13 @@ public class PlayerMovement : MonoBehaviour
                 activeSpeed = speed;
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // physical jump code
             }
-            else
+            else if(canDoubleJump)
             {
-                if(canDoubleJump)
-                {
-                    velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // physical jump code
-                    canDoubleJump = false;
-                }
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // physical jump code
+                canDoubleJump = false;
             }
         }
         
-
 
         /*      0000        */
         if(direction.magnitude >= 0.1f)

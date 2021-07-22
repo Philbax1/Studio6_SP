@@ -9,14 +9,17 @@ public class enemyStates : MonoBehaviour
     public NavMeshAgent nmAgent;
 
     float followRange = 50f;
-    float attackRange = 5f;
+    float attackRange = 1.5f;
+    int attackDamage = 1;
 
     float distance;
+
+    public PlayerHealth playerHealth;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
     }
 
     // Update is called once per frame
@@ -48,6 +51,8 @@ public class enemyStates : MonoBehaviour
     void attackPlayer()
     {
         Debug.Log("enemy is attacking player");
+
+        playerHealth.TakeDamage(attackDamage);
     }
 
     void die()
