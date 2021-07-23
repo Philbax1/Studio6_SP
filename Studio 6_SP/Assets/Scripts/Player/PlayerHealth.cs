@@ -7,6 +7,9 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 5;
     public int currentHealth;
+    public CharacterController m_Player;
+
+    private float pushFroce = 1;
 
     public GameObject heartIcon1;
     public GameObject heartIcon2;
@@ -30,8 +33,9 @@ public class PlayerHealth : MonoBehaviour
 
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Transform enemyLocation)
     {
+        applyForceToPlayer(enemyLocation);
         currentHealth -= damage;
 
       switch (currentHealth)
@@ -55,6 +59,13 @@ public class PlayerHealth : MonoBehaviour
             heartIcon1.SetActive(false);
             break;
       }
+    }
+
+    public void applyForceToPlayer(Transform enemyLocation)
+    {    
+        Vector3 dir = enemyLocation.position - transform.position;  // Calculate Angle Between the collision point and the player
+
+        m_Player.Move(-dir.normalized * pushFroce * Time.smoothDeltaTime);
     }
 
 }

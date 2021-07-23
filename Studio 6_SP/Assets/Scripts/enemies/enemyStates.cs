@@ -12,6 +12,8 @@ public class enemyStates : MonoBehaviour
     float attackRange = 1.5f;
     int attackDamage = 1;
 
+    bool readyAttack = true;
+
     float distance;
 
     public PlayerHealth playerHealth;
@@ -29,9 +31,9 @@ public class enemyStates : MonoBehaviour
 
         if(distance <= followRange)
         {
-            if(distance <= attackRange)
+            if(distance <= attackRange && readyAttack)
             {
-                attackPlayer();
+                StartCoroutine("attackPlayer");
             }
             else followPlayer();
         }
@@ -48,11 +50,14 @@ public class enemyStates : MonoBehaviour
         nmAgent.SetDestination(player.position);
     }
 
-    void attackPlayer()
+    IEnumerator attackPlayer()
     {
         Debug.Log("enemy is attacking player");
-
-        playerHealth.TakeDamage(attackDamage);
+        playerHealth.TakeDamage(attackDamage, transform);
+        
+        readyAttack = false;
+        yield return new WaitForSeconds(.5f);
+        readyAttack = true;
     }
 
     void die()
