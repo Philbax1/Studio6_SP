@@ -4,4 +4,5 @@ Similar Games
 - A Hat in Time
 - Ty the Tasmanian Tiger
 - Crash Bandicoot
-
+- Prince of Persia 1989
+- -
