@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if(canDoubleJump)
             {
+                activeSpeed = speed;
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // physical jump code
                 canDoubleJump = false;
             }

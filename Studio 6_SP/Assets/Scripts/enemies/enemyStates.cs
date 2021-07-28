@@ -8,6 +8,9 @@ public class enemyStates : MonoBehaviour
     public Transform player;
     public NavMeshAgent nmAgent;
 
+    int enemyMaxHealth = 3;
+    int enemyCurrentHealth;
+
     float followRange = 50f;
     float attackRange = 1.5f;
     int attackDamage = 1;
@@ -21,6 +24,7 @@ public class enemyStates : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enemyCurrentHealth = enemyMaxHealth; //set enemy health
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
     }
 
@@ -52,7 +56,7 @@ public class enemyStates : MonoBehaviour
 
     IEnumerator attackPlayer()
     {
-        Debug.Log("enemy is attacking player");
+        //Debug.Log("enemy is attacking player");
         playerHealth.TakeDamage(attackDamage, transform);
         
         readyAttack = false;
@@ -60,8 +64,18 @@ public class enemyStates : MonoBehaviour
         readyAttack = true;
     }
 
+    public void enemyTakeDamage(int damage)
+    {   
+        enemyCurrentHealth -= damage;
+
+        if(enemyCurrentHealth <= 0)
+        {
+            die();  
+        }
+    }
+
     void die()
     {
-
+        Debug.Log("ENEMY HAS DIED");
     }
 }
