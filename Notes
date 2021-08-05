@@ -1,0 +1,8 @@
+** NavMesh Enemy Navigation **
+in the toolbar, click on Window > AI > Navigation. (this will open up a new tool) 
+Click on Object (in the new tool window) and select the surface in the scene. 
+Check Navigation static and make sure "Walkable" is selected for the 'Navigation Area' drop-down. 
+Now click on the walls in your scene, check static and change to Not Walkable. Now go to the "Bake" tab, on the left of 'Object' and click bake. 
+If your Agent is clipping through the walls, you can always increase "Agent Radius" in the Bake Tab.
+-----------------------------------------------------------------------------------------------
+
