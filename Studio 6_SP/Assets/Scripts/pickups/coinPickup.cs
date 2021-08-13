@@ -9,10 +9,9 @@ public class coinPickup : MonoBehaviour
     public GameObject player;
 
     float distance;
-    float coinPickupDistance = 1.2f;
+    float coinPickupDistance = 1.45f;
 
-    public TextMeshProUGUI scoreUIText; 
-    int scoreCounter = 0;
+    public TextMeshProUGUI scoreUIText;
 
     // Start is called before the first frame update
     void Start()
