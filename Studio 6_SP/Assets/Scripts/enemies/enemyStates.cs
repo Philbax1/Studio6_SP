@@ -46,7 +46,7 @@ public class enemyStates : MonoBehaviour
 
     void neutralPatrol()
     {
-        Debug.Log("enemy is in neutral state");
+        //Debug.Log("enemy is in neutral state");
     }
 
     void followPlayer()
@@ -56,7 +56,7 @@ public class enemyStates : MonoBehaviour
 
     IEnumerator attackPlayer()
     {
-        //Debug.Log("enemy is attacking player");
+        Debug.Log("enemy is attacking player");
         playerHealth.TakeDamage(attackDamage, transform);
         
         readyAttack = false;
@@ -67,6 +67,7 @@ public class enemyStates : MonoBehaviour
     public void enemyTakeDamage(int damage)
     {   
         enemyCurrentHealth -= damage;
+        Debug.Log("damage done");
 
         if(enemyCurrentHealth <= 0)
         {
@@ -76,6 +77,6 @@ public class enemyStates : MonoBehaviour
 
     void die()
     {
-        Debug.Log("ENEMY HAS DIED");
+        //Debug.Log("ENEMY HAS DIED");
     }
 }
