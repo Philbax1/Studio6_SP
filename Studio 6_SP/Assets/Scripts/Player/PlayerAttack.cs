@@ -38,13 +38,12 @@ public class PlayerAttack : MonoBehaviour
 
         if(Physics.Raycast(playerBody.transform.position, playerBody.transform.forward, out hit, range))
         {
-            Debug.Log(hit.transform.name);
+            //Debug.Log(hit.transform.name);
             
             enemy = hit.transform.GetComponent<enemyStates>();
 
             if(enemy != null)
             {
-
                 enemy.enemyTakeDamage(playerAttackDamage);
             }
         }

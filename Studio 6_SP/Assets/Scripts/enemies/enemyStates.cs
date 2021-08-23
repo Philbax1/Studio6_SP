@@ -7,6 +7,7 @@ public class enemyStates : MonoBehaviour
 {
     public Transform player;
     public NavMeshAgent nmAgent;
+    public Rigidbody enemyRigidBody;
 
     int enemyMaxHealth = 3;
     int enemyCurrentHealth;
@@ -60,7 +61,7 @@ public class enemyStates : MonoBehaviour
         playerHealth.TakeDamage(attackDamage, transform);
         
         readyAttack = false;
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(1f);
         readyAttack = true;
     }
 
@@ -68,6 +69,8 @@ public class enemyStates : MonoBehaviour
     {   
         enemyCurrentHealth -= damage;
         Debug.Log("damage done");
+        
+        enemyRigidBody.AddForce(transform.up * 100f);
 
         if(enemyCurrentHealth <= 0)
         {
@@ -77,6 +80,15 @@ public class enemyStates : MonoBehaviour
 
     void die()
     {
+        Destroy(gameObject, 1);
+
         //Debug.Log("ENEMY HAS DIED");
+    }
+
+    public void applyForceToEnemy()
+    {    
+        Vector3 dir = player.position - transform.position;  // Calculate Angle Between the collision point and the player
+
+        enemyRigidBody.AddForce(transform.up * 10);
     }
 }
