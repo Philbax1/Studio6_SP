@@ -4,14 +4,25 @@ using UnityEngine;
 
 public class pickupRotation : MonoBehaviour
 {
-    public float rotateSpeed = 100f;
+    public float rotateCoinSpeed = 100f;
+    public float rotateMBoxSpeed = 40f;
+    private string objectTag; 
+
 // Start is called before the first frame update
 void Start()
 {
+    objectTag = gameObject.tag;
 }
 // Update is called once per frame
 void Update()
 {
-    transform.Rotate(Vector3.right * rotateSpeed * Time.deltaTime);
+    if(objectTag == "pickupCoin")
+    {
+        transform.Rotate(Vector3.right * rotateCoinSpeed * Time.deltaTime);
+    }
+    if(objectTag == "pickupMysteryBox")
+    {
+        transform.Rotate(Vector3.up * rotateMBoxSpeed * Time.deltaTime);
+    }
 }
 }
