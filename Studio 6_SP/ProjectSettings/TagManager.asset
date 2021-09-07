@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - enemy
   - pickup
+  - pickupMysteryBox
+  - pickupCoin
+  - coinManger
   layers:
   - Default
   - TransparentFX

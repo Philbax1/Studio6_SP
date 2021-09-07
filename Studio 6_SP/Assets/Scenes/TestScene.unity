@@ -191,7 +191,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.79653, y: 1}
+    m_SensorSize: {x: 1.7980922, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -632,7 +632,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 207007546}
-  m_LocalRotation: {x: -0.004355064, y: 0.9955377, z: -0.058928445, w: -0.07357448}
+  m_LocalRotation: {x: -0.004355064, y: 0.9955377, z: -0.05892844, w: -0.07357449}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -676,7 +676,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.79653, y: 1}
+    m_SensorSize: {x: 1.7980922, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1313,7 +1313,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.79653, y: 1}
+    m_SensorSize: {x: 1.7980922, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1433,7 +1433,7 @@ GameObject:
   - component: {fileID: 643740327}
   m_Layer: 0
   m_Name: coin (2)
-  m_TagString: pickup
+  m_TagString: pickupCoin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1479,7 +1479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  scoreUIText: {fileID: 1712963188}
+  coinManager: {fileID: 0}
 --- !u!114 &643740329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1492,7 +1492,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf9651f1824ca046a4fc4c8e22d0db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 100
+  rotateCoinSpeed: 100
+  rotateMBoxSpeed: 40
 --- !u!23 &643740330
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2257,7 +2258,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.79653, y: 1}
+    m_SensorSize: {x: 1.7980922, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2747,6 +2748,131 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1155843119}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1216874469
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1216874470}
+  - component: {fileID: 1216874475}
+  - component: {fileID: 1216874474}
+  - component: {fileID: 1216874473}
+  - component: {fileID: 1216874472}
+  - component: {fileID: 1216874471}
+  m_Layer: 0
+  m_Name: RandomCube
+  m_TagString: pickupMysteryBox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1216874470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216874469}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -19.485764, y: 1.7750192, z: -6.939827}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1411057987}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1216874471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216874469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c279017329ac994bb5e08d23bd924c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  coinManager: {fileID: 0}
+--- !u!114 &1216874472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216874469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf9651f1824ca046a4fc4c8e22d0db9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateCoinSpeed: 100
+  rotateMBoxSpeed: 40
+--- !u!65 &1216874473
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216874469}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1216874474
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216874469}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1216874475
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216874469}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1242857147
 GameObject:
   m_ObjectHideFlags: 0
@@ -3007,7 +3133,7 @@ GameObject:
   - component: {fileID: 1411057988}
   m_Layer: 0
   m_Name: pickupsManager
-  m_TagString: Untagged
+  m_TagString: coinManger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3026,6 +3152,7 @@ Transform:
   - {fileID: 1963844261}
   - {fileID: 2070085266}
   - {fileID: 643740326}
+  - {fileID: 1216874470}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3038,10 +3165,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1411057986}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68f9e4085bb1adf4aab4e4d1da1db986, type: 3}
+  m_Script: {fileID: 11500000, guid: d0a14630e602b214badf35bea0cd9c3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scoreCounter: 0
+  scoreUIText: {fileID: 1712963188}
 --- !u!1 &1471044066
 GameObject:
   m_ObjectHideFlags: 0
@@ -3737,7 +3865,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1734359751}
-  m_LocalRotation: {x: -0.005155684, y: 0.9948373, z: -0.069761656, w: -0.07352272}
+  m_LocalRotation: {x: -0.0051556844, y: 0.9948373, z: -0.069761656, w: -0.07352272}
   m_LocalPosition: {x: -40.451904, y: 7.4320626, z: -20.222923}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4404,7 +4532,7 @@ GameObject:
   - component: {fileID: 1963844262}
   m_Layer: 0
   m_Name: coin
-  m_TagString: pickup
+  m_TagString: pickupCoin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4449,7 +4577,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf9651f1824ca046a4fc4c8e22d0db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 100
+  rotateCoinSpeed: 100
+  rotateMBoxSpeed: 40
 --- !u!23 &1963844264
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4512,7 +4641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  scoreUIText: {fileID: 1712963188}
+  coinManager: {fileID: 0}
 --- !u!1 &2032930482
 GameObject:
   m_ObjectHideFlags: 0
@@ -4559,7 +4688,7 @@ GameObject:
   - component: {fileID: 2070085267}
   m_Layer: 0
   m_Name: coin (1)
-  m_TagString: pickup
+  m_TagString: pickupCoin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4605,7 +4734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  scoreUIText: {fileID: 1712963188}
+  coinManager: {fileID: 0}
 --- !u!114 &2070085269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4618,7 +4747,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf9651f1824ca046a4fc4c8e22d0db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 100
+  rotateCoinSpeed: 100
+  rotateMBoxSpeed: 40
 --- !u!23 &2070085270
 MeshRenderer:
   m_ObjectHideFlags: 0

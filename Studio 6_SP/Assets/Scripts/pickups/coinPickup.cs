@@ -1,20 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class coinPickup : MonoBehaviour
 {
     public GameObject player;
     float distance;
     float coinPickupDistance = 1.45f;
-    public TextMeshProUGUI scoreUIText;
+
+    public coinManager coinManager;
 
 // Start is called before the first frame update
 void Start()
 {
     player = GameObject.FindGameObjectWithTag("Player");
-    scoreUIText.text = "x0";
+    coinManager = GameObject.FindGameObjectWithTag("coinManger").GetComponent<coinManager>();
 }
 
 // Update is called once per frame
@@ -24,10 +24,10 @@ void Update()
 
     if(distance <= coinPickupDistance)
     {
-        GameObject.Find("pickupsManager").GetComponent<coinCounter>().scoreCounter += 1;
-        scoreUIText.text = "x" + GameObject.Find("pickupsManager").GetComponent<coinCounter>().scoreCounter;
-
+        coinManager.coinInteraction();
         this.gameObject.SetActive(false);
     }
 }
+
+
 }
