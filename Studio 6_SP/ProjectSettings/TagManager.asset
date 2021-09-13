@@ -10,6 +10,9 @@ TagManager:
   - pickupMysteryBox
   - pickupCoin
   - coinManger
+  - spinPlatform
+  - upDownPlatform
+  - tipPlatform
   layers:
   - Default
   - TransparentFX

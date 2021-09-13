@@ -60,7 +60,7 @@ public class enemyStates : MonoBehaviour
         playerHealth.TakeDamage(attackDamage, transform);
         
         readyAttack = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         readyAttack = true;
     }
 
