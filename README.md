@@ -12,4 +12,11 @@ Similar Games
 Possible enemies
 - Takes a second and then cahrges at player on contact bumps player back.
 - Locks onto player in range and fires projectile at them every few seconds.
+- Shark, patrols water for enemy to fall in
+
+
+Puzzles
 - 
+
+Console issue
+https://answers.unity.com/questions/1137110/invalid-editor-window-unityeditorfallbackeditorwin.html
