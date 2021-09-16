@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SpecialPlatforms : MonoBehaviour
 {
-    public float platformSpinSpeed = 40f;
+    public float platformSpinSpeed = 5f;
     private string objectTag; 
 
     float distance;
     public GameObject player;
-    float platformDsitance = 4;
+    float platformDistance = 4;
 
 
 // Start is called before the first frame update
@@ -23,7 +23,8 @@ void Update()
 {
     if(objectTag == "spinPlatform")
     {
-        transform.Rotate(Vector3.back * platformSpinSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.up * platformSpinSpeed * Time.deltaTime);
+        //transform.Rotate(Vector3.back * platformSpinSpeed * Time.deltaTime);
     }
     if(objectTag == "upDownPlatform")
     {
@@ -34,7 +35,7 @@ void Update()
 
         distance = Vector3.Distance(player.transform.position, transform.position);
         
-        if(distance <= platformDsitance)
+        if(distance <= platformDistance)
         {
             StartCoroutine("dropPlatfrom");
             //this.gameObject.SetActive(false);
