@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour
     public int currentHealth;
     public CharacterController m_Player;
 
-    private float pushFroce = 5;
+    private float pushFroce = 2;
 
     public GameObject heartIcon1;
     public GameObject heartIcon2;
@@ -57,6 +57,7 @@ public class PlayerHealth : MonoBehaviour
             break;
         case 0:
             heartIcon1.SetActive(false);
+            playerDie();
             break;
       }
     }
@@ -66,6 +67,11 @@ public class PlayerHealth : MonoBehaviour
         Vector3 dir = enemyLocation.position - transform.position;  // Calculate Angle Between the collision point and the player
 
         m_Player.Move(-dir.normalized * pushFroce);
+    }
+
+    public void playerDie()
+    {
+        this.gameObject.SetActive(false);
     }
 
 }

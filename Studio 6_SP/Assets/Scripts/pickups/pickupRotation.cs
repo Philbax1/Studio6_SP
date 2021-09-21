@@ -22,7 +22,7 @@ void Update()
     }
     if(objectTag == "pickupMysteryBox")
     {
-        transform.Rotate(Vector3.up * rotateMBoxSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.back * rotateMBoxSpeed * Time.deltaTime);
     }
 }
 }
