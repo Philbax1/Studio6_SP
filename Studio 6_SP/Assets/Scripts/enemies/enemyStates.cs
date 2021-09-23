@@ -17,8 +17,8 @@ public class enemyStates : MonoBehaviour
     float attackRange = 1.5f;
     int attackDamage = 1;
 
-    float SharkAttackRange = 3f;
-    int SharkAttackDamage = 1;
+    float SharkAttackRange = 3.5f;
+    int SharkAttackDamage = 3;
 
     bool readyAttack = true;
 
