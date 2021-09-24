@@ -25,11 +25,13 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
     bool canDoubleJump = true;
 
+    public GameObject waterObject;
 
     // Start is called before the first frame update
     void Start()
     {
         activeSpeed = speed;
+        waterObject = GameObject.FindGameObjectWithTag("waterPlane");
     }
 
     // Update is called once per frame
@@ -83,5 +85,4 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftShift) && isGrounded) activeSpeed = runSpeed;
         if(Input.GetKeyUp(KeyCode.LeftShift)) activeSpeed = speed;
     }
-
 }
