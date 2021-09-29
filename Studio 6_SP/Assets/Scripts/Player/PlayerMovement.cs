@@ -32,6 +32,10 @@ public class PlayerMovement : MonoBehaviour
     {
         activeSpeed = speed;
         waterObject = GameObject.FindGameObjectWithTag("waterPlane");
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        //Screen.lockCursor = true;
+        
     }
 
     // Update is called once per frame
