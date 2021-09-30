@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public CharacterController controller;
+    //public CharacterController controller;
+    public Rigidbody charRigidbody;
     public Transform cam;
 
     float activeSpeed;
@@ -25,13 +26,18 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
     bool canDoubleJump = true;
 
-    public GameObject waterObject;
+// Water variables
+    public LayerMask waterMask;
+    public Transform waterCheck;
+
+    bool isInWater;
 
     // Start is called before the first frame update
     void Start()
     {
         activeSpeed = speed;
-        waterObject = GameObject.FindGameObjectWithTag("waterPlane");
+        charRigidbody = GetComponent<Rigidbody>();
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         //Screen.lockCursor = true;
@@ -41,9 +47,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.W)) Debug.Log("Move");
+
         float horizontal = Input.GetAxisRaw("Horizontal");  // -1 if a key, +2 if d key
         float vertical = Input.GetAxisRaw("Vertical");  // -1 if s key, +2 if w key
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+        Vector3 direction = transform.position + transform.forward * vertical + transform.right * horizontal * speed * Time.deltaTime;
+
+        charRigidbody.MovePosition(direction);
 
         /*      Jump      */
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask); //checks if groundcheck sphere is in contact with object labelled ground
@@ -54,8 +64,8 @@ public class PlayerMovement : MonoBehaviour
             canDoubleJump = true;   //allows player to double jump after makiing contact with ground layer
         }
 
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+        //velocity.y += gravity * Time.deltaTime;
+        //charRigidbody.MovePosition(velocity * Time.deltaTime);
 
         if(Input.GetButtonDown("Jump"))
         {
@@ -73,15 +83,16 @@ public class PlayerMovement : MonoBehaviour
         }
         
 
-        /*      0000        */
+        /*      snap to camera        */
         if(direction.magnitude >= 0.1f)
         {
+            
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime); //smooths character turning
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(moveDir.normalized * activeSpeed * Time.deltaTime);
+            charRigidbody.MoveRotation(moveDir.normalized * activeSpeed * Time.deltaTime);
         }
 
         
