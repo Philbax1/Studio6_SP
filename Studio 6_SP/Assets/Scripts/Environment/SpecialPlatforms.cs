@@ -46,7 +46,8 @@ void Update()
 IEnumerator dropPlatfrom()
 {
     yield return new WaitForSeconds(.5f);
-    this.gameObject.GetComponent<Rigidbody>().useGravity = true;
+    //this.gameObject.GetComponent<Rigidbody>().useGravity = true;
+    this.GetComponent<Buoyancy>().enabled = false;
 }
 
 }

@@ -23,7 +23,7 @@ public class Buoyancy : MonoBehaviour
     {
         float differnce = transform.position.y - waterHeight;
 
-        if(differnce < 0)
+        if(differnce <= 0)
         {
             m_Rigidbody.AddForceAtPosition(Vector3.up * floatingPower * Mathf.Abs(differnce), transform.position, ForceMode.Force);
 
