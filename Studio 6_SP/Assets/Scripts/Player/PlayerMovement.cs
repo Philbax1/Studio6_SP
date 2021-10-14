@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 { 
     public CharacterController controller;
+    public Rigidbody rb;
+
     public Transform cam;
 
     float activeSpeed;
@@ -33,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        //rb = GetComponent<Rigidbody>();
+
         activeSpeed = speed;
         waterObject = GameObject.FindGameObjectWithTag("waterPlane");
         Cursor.visible = false;
@@ -42,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate ()
+    void Update ()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");  // -1 if a key, +2 if d key
         float vertical = Input.GetAxisRaw("Vertical");  // -1 if s key, +2 if w key
