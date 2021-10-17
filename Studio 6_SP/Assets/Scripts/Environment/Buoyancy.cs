@@ -9,7 +9,7 @@ public class Buoyancy : MonoBehaviour
     public float airDrag = 0f;
     public float airAngularDrag = 0.05f;
     public float floatingPower = 15f;
-    private float waterHeight = 29f;
+    private float waterHeight = 29f; // This determines the water level
     Rigidbody m_Rigidbody;
 
     bool underWater;

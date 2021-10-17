@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 { 
     public CharacterController controller;
-    public Rigidbody rb;
+    //public Rigidbody rb;
 
     public Transform cam;
 
@@ -29,7 +29,18 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
     bool canDoubleJump = true;
 
-    public GameObject waterObject;
+// swim float variables
+    public LayerMask waterMask;
+    public bool isSwimming;
+
+    public float underWaterDrag = 3f;
+    public float underWaterAngularDrag = 1f;
+    public float airDrag = 0f;
+    public float airAngularDrag = 0.05f;
+    public float floatingPower = 15f;
+    private float waterHeight = 29f; // This determines the water level
+
+    bool underWater;
 
     // Start is called before the first frame update
     void Start()
@@ -37,12 +48,12 @@ public class PlayerMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         //rb = GetComponent<Rigidbody>();
 
+        groundMask = LayerMask.GetMask("Ground");
+        waterMask = LayerMask.GetMask("Water");
+
         activeSpeed = speed;
-        waterObject = GameObject.FindGameObjectWithTag("waterPlane");
         Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        //Screen.lockCursor = true;
-        
+        Cursor.lockState = CursorLockMode.Locked;        
     }
 
     // Update is called once per frame
@@ -50,7 +61,9 @@ public class PlayerMovement : MonoBehaviour
     {
         float horizontal = Input.GetAxisRaw("Horizontal");  // -1 if a key, +2 if d key
         float vertical = Input.GetAxisRaw("Vertical");  // -1 if s key, +2 if w key
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+        
+        moveCharacter(horizontal, vertical);
+        //rb.velocity = new Vector3(horizontal * speed, rb.velocity.y, vertical * speed).normalized;
 
         /*      Jump      */
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask); //checks if groundcheck sphere is in contact with object labelled ground
@@ -80,15 +93,18 @@ public class PlayerMovement : MonoBehaviour
                 canDoubleJump = false;
             }
         }
-
-        cameraSnap(direction);
-
-        /*      snaps player to camera direction         */
-        
         
         /*      Sprint        */
         if(Input.GetKeyDown(KeyCode.LeftShift) && isGrounded) activeSpeed = runSpeed;
         if(Input.GetKeyUp(KeyCode.LeftShift)) activeSpeed = speed;
+
+    }
+
+    public void moveCharacter(float horizontal, float vertical)
+    {
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+        cameraSnap(direction); // method that moves character in camera direction
     }
 
     public void jumpGroundHelper()
@@ -121,6 +137,13 @@ public class PlayerMovement : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * activeSpeed * Time.deltaTime);
         }
-
+    }
+ 
+    void OnControllerColliderHit(ControllerColliderHit hit) 
+    {
+        if(hit.gameObject.layer == 4)
+        {
+            Debug.Log("water!!!");
+        }
     }
 }
