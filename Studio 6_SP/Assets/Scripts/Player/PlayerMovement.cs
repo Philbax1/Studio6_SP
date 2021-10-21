@@ -31,13 +31,9 @@ public class PlayerMovement : MonoBehaviour
 
 // swim float variables
     public LayerMask waterMask;
-    public bool isSwimming;
+    public bool isSwimming = false;
 
-    public float underWaterDrag = 3f;
-    public float underWaterAngularDrag = 1f;
-    public float airDrag = 0f;
-    public float airAngularDrag = 0.05f;
-    public float floatingPower = 15f;
+    public float floatingPower = .001f;
     private float waterHeight = 29f; // This determines the water level
 
     bool underWater;
@@ -59,13 +55,19 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+/*      Forward,back,left,right      */
         float horizontal = Input.GetAxisRaw("Horizontal");  // -1 if a key, +2 if d key
         float vertical = Input.GetAxisRaw("Vertical");  // -1 if s key, +2 if w key
         
         moveCharacter(horizontal, vertical);
-        //rb.velocity = new Vector3(horizontal * speed, rb.velocity.y, vertical * speed).normalized;
+          
 
-        /*      Jump      */
+/*      Sprint        */
+        if(Input.GetKeyDown(KeyCode.LeftShift) && isGrounded) activeSpeed = runSpeed;
+        if(Input.GetKeyUp(KeyCode.LeftShift)) activeSpeed = speed;
+
+
+/*      Jump      */
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask); //checks if groundcheck sphere is in contact with object labelled ground
 
         if(isGrounded && velocity.y < 0) // stops gravity when player is on ground again
@@ -77,11 +79,9 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        jumpGroundHelper();
-
         if(Input.GetButtonDown("Jump"))
         {
-            if(isGrounded) 
+            if(isGrounded || isSwimming) 
             {
                 activeSpeed = speed;
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // physical jump code
@@ -93,11 +93,12 @@ public class PlayerMovement : MonoBehaviour
                 canDoubleJump = false;
             }
         }
-        
-        /*      Sprint        */
-        if(Input.GetKeyDown(KeyCode.LeftShift) && isGrounded) activeSpeed = runSpeed;
-        if(Input.GetKeyUp(KeyCode.LeftShift)) activeSpeed = speed;
 
+        jumpGroundHelper();
+
+
+/*      Swim        */
+        swim();
     }
 
     public void moveCharacter(float horizontal, float vertical)
@@ -139,11 +140,37 @@ public class PlayerMovement : MonoBehaviour
         }
     }
  
-    void OnControllerColliderHit(ControllerColliderHit hit) 
+    public void swim() 
     {
-        if(hit.gameObject.layer == 4)
+        float differnce = transform.position.y - waterHeight;
+
+        Debug.Log(differnce);
+
+        if(differnce <= 0)
         {
-            Debug.Log("water!!!");
+            isSwimming=true;
+            velocity.y = Mathf.Sqrt(floatingPower * Time.deltaTime);
+
+            Debug.Log("Swimming");
+        }
+        else
+        {
+            isSwimming = false;
         }
     }
+/*
+    void switchState (bool isUnderwater)
+    {
+        if (isUnderwater)
+        {
+            m_Rigidbody.drag = underWaterDrag;
+            m_Rigidbody.angularDrag = underWaterAngularDrag;
+        }
+        else
+        {
+            m_Rigidbody.drag = airDrag;
+            m_Rigidbody.angularDrag = airAngularDrag;
+        }
+    }
+    */
 }

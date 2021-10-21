@@ -25,6 +25,7 @@ public class enemyStates : MonoBehaviour
     float distance;
 
     public PlayerHealth playerHealth;
+    public PlayerMovement playerMovement_isSwimming;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +35,8 @@ public class enemyStates : MonoBehaviour
         enemyCurrentHealth = enemyMaxHealth; //set enemy health
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        
+        playerMovement_isSwimming = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -46,10 +49,16 @@ public class enemyStates : MonoBehaviour
             followPlayer();
 
             if(objectTag == "sharkEnemy")
-                if(distance <= SharkAttackRange && readyAttack)
+                if (playerMovement_isSwimming.isSwimming == true)
                 {
-                    StartCoroutine("attackPlayer");
-                } 
+                    followPlayer();
+                    
+                    if(distance <= SharkAttackRange && readyAttack)
+                    {
+                        StartCoroutine("attackPlayer");
+                    } 
+                }
+                
             else
             {
                if(distance <= attackRange && readyAttack)
