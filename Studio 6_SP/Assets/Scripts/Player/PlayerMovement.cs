@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask waterMask;
     public bool isSwimming = false;
 
-    public float floatingPower = .001f;
+    public float floatingPower = .1f;
     private float waterHeight = 29f; // This determines the water level
 
     bool underWater;
@@ -146,12 +146,16 @@ public class PlayerMovement : MonoBehaviour
 
         Debug.Log(differnce);
 
-        if(differnce <= 0)
+        if(differnce <= 0 && differnce <= 0.5)
         {
-            isSwimming=true;
+            isSwimming = true;
             velocity.y = Mathf.Sqrt(floatingPower * Time.deltaTime);
 
             Debug.Log("Swimming");
+        }
+        else if(differnce < 0.5)
+        {
+             //velocity.y = Mathf.Sqrt(floatingPower * Time.deltaTime);
         }
         else
         {
