@@ -9,12 +9,14 @@ public class coinPickup : MonoBehaviour
     float coinPickupDistance = 1.45f;
 
     public coinManager coinManager;
+    public playSounds playSounds;
 
 // Start is called before the first frame update
 void Start()
 {
     player = GameObject.FindGameObjectWithTag("Player");
-    coinManager = GameObject.FindGameObjectWithTag("coinManger").GetComponent<coinManager>();
+    coinManager = GameObject.FindGameObjectWithTag("coinManger").GetComponent<coinManager>(); 
+    playSounds = GameObject.FindGameObjectWithTag("sound").GetComponent<playSounds>();
 }
 
 // Update is called once per frame
@@ -24,6 +26,7 @@ void Update()
 
     if(distance <= coinPickupDistance)
     {
+        playSounds.coinSoundPlay();
         coinManager.coinInteraction();
         this.gameObject.SetActive(false);
     }

@@ -15,6 +15,7 @@ TagManager:
   - tipPlatform
   - sharkEnemy
   - waterPlane
+  - sound
   layers:
   - Default
   - TransparentFX

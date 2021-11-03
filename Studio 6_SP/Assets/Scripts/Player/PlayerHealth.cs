@@ -29,6 +29,9 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
         deathMessageUI.enabled = false;
         lifesAmount.text = "x " + playerLives.ToString();
+        m_Player = GetComponent<CharacterController>();
+
+        deathMessageUI.enabled = false;
         //healthBar.SetMaxHealth(maxHealth);
     }
 

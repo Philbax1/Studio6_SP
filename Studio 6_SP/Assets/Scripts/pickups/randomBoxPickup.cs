@@ -12,10 +12,13 @@ public class randomBoxPickup : MonoBehaviour
 
     public coinManager coinManager;
 
+    public playSounds playSounds;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         coinManager = GameObject.FindGameObjectWithTag("coinManger").GetComponent<coinManager>();
+        playSounds = GameObject.FindGameObjectWithTag("sound").GetComponent<playSounds>();
     }
 
     void Update()
@@ -24,13 +27,14 @@ public class randomBoxPickup : MonoBehaviour
 
         if(distance <= boxDistance)
         {
+            playSounds.mysteryBoxSoundPlay();
+
             ranNum = 4/*Random.Range(1,100)*/;
             Debug.Log(ranNum);
             
             if(ranNum >= 4)
             {
                 coinManager.coinInteraction();
-                this.gameObject.SetActive(false);
 
                 Debug.Log("Coin Received, will need to make some speical affect to show");
             }

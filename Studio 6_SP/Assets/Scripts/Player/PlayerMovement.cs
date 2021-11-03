@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerMovement : MonoBehaviour
 { 
     public CharacterController controller;
-    //public Rigidbody rb;
+    //public Rigidbody player_rb;
 
     public Transform cam;
 
@@ -34,15 +35,17 @@ public class PlayerMovement : MonoBehaviour
     public bool isSwimming = false;
 
     public float floatingPower = .1f;
-    private float waterHeight = 29f; // This determines the water level
+    private float waterHeight = 28f; // This determines the water level
 
     bool underWater;
+
+    public AudioSource jumpSound;
 
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        //rb = GetComponent<Rigidbody>();
+        //player_rb = GetComponent<Rigidbody>();
 
         groundMask = LayerMask.GetMask("Ground");
         waterMask = LayerMask.GetMask("Water");
@@ -63,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
           
 
 /*      Sprint        */
-        if(Input.GetKeyDown(KeyCode.LeftShift) && isGrounded) activeSpeed = runSpeed;
+        if(Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && !isSwimming) activeSpeed = runSpeed;
         if(Input.GetKeyUp(KeyCode.LeftShift)) activeSpeed = speed;
 
 
@@ -83,11 +86,13 @@ public class PlayerMovement : MonoBehaviour
         {
             if(isGrounded || isSwimming) 
             {
+                jumpSound.Play();
                 activeSpeed = speed;
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // physical jump code
             }
             else if(canDoubleJump)
             {
+                jumpSound.Play();
                 activeSpeed = speed;
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // physical jump code
                 canDoubleJump = false;
@@ -104,7 +109,6 @@ public class PlayerMovement : MonoBehaviour
     public void moveCharacter(float horizontal, float vertical)
     {
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-
         cameraSnap(direction); // method that moves character in camera direction
     }
 
@@ -144,37 +148,16 @@ public class PlayerMovement : MonoBehaviour
     {
         float differnce = transform.position.y - waterHeight;
 
-        Debug.Log(differnce);
-
-        if(differnce <= 0 && differnce <= 0.5)
+        if(differnce == 0 || differnce <= 1)
         {
             isSwimming = true;
             velocity.y = Mathf.Sqrt(floatingPower * Time.deltaTime);
-
             Debug.Log("Swimming");
         }
-        else if(differnce < 0.5)
+        else if (differnce < 0)
         {
-             //velocity.y = Mathf.Sqrt(floatingPower * Time.deltaTime);
+            velocity.y = Mathf.Sqrt(10000 * Time.deltaTime);
         }
-        else
-        {
-            isSwimming = false;
-        }
+        else isSwimming = false;
     }
-/*
-    void switchState (bool isUnderwater)
-    {
-        if (isUnderwater)
-        {
-            m_Rigidbody.drag = underWaterDrag;
-            m_Rigidbody.angularDrag = underWaterAngularDrag;
-        }
-        else
-        {
-            m_Rigidbody.drag = airDrag;
-            m_Rigidbody.angularDrag = airAngularDrag;
-        }
-    }
-    */
 }

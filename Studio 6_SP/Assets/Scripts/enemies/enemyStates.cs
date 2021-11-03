@@ -13,11 +13,12 @@ public class enemyStates : MonoBehaviour
 
     private string objectTag; 
 
-    float followRange = 50f;
+    float followRange = 500f;
     float attackRange = 1.5f;
     int attackDamage = 1;
 
-    float SharkAttackRange = 3.5f;
+    float SharkAttackRange = 7f;
+    float SharkStalkRange = 50f;
     int SharkAttackDamage = 3;
 
     bool readyAttack = true;
@@ -31,11 +32,9 @@ public class enemyStates : MonoBehaviour
     void Start()
     {
         objectTag = gameObject.tag;
-
         enemyCurrentHealth = enemyMaxHealth; //set enemy health
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
-        
         playerMovement_isSwimming = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
@@ -44,35 +43,44 @@ public class enemyStates : MonoBehaviour
     {
         distance = Vector3.Distance(player.transform.position, transform.position);
 
-        if(distance <= followRange)
+        if(objectTag == "sharkEnemy")
         {
-            followPlayer();
-
-            if(objectTag == "sharkEnemy")
-                if (playerMovement_isSwimming.isSwimming == true)
-                {
-                    followPlayer();
-                    
-                    if(distance <= SharkAttackRange && readyAttack)
-                    {
-                        StartCoroutine("attackPlayer");
-                    } 
-                }
-                
-            else
+            if (playerMovement_isSwimming.isSwimming == true)
             {
-               if(distance <= attackRange && readyAttack)
+                //Debug.Log("player in water");
+
+                followPlayer();
+                    
+                if(distance <= SharkAttackRange)
+                {
+                    //Debug.Log("attacking");
+                    StartCoroutine("attackPlayer");
+                } 
+            }
+            else if (distance > SharkStalkRange)
+            {
+                //followPlayer();
+            }
+            else neutralPatrol();
+        } 
+        else if (objectTag == "enemy")
+        {
+            if (followRange <= distance)
+            {
+                followPlayer();
+
+                if(distance <= attackRange && readyAttack)
                 {
                     StartCoroutine("attackPlayer");
                 } 
-            } 
+            }
+            else followPlayer();
         }
-        else neutralPatrol();
     }
 
     void neutralPatrol()
     {
-        //Debug.Log("enemy is in neutral state");
+        Debug.Log("enemy is in neutral state");
     }
 
     void followPlayer()
